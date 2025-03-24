@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id           String        @id @default(uuid())
+  x            Float
+  y            Float
+  SportsObject SportsObject?
+}
+
+model Schedule {
+  id        String   @id @default(uuid())
+  dayOfWeek String
+  startTime DateTime
+  endTime   DateTime
+  card      Card     @relation(fields: [cardId], references: [id])
+  cardId    String
+}
+
+model User {
+  id                  String  @id @default(uuid())
+  hashedPassword      String
+  email               String  @unique @db.VarChar(255)
+  phone               String? @db.VarChar(20)
+  tgUsername          String? @db.VarChar(255)
+  name                String? @db.VarChar(255)
+  age                 Int?
+  card                Card?
+  Card_UserLikedCards Card[]  @relation("UserLikedCards")
+}
+
+model Card {
+  id                            String         @id @default(uuid())
+  User_UserLikedCards           User[]         @relation("UserLikedCards")
+  schedules                     Schedule[]
+  SportsObject_CardAddedObjects SportsObject[] @relation("CardAddedObjects")
+  author                        User           @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  authorId                      String         @unique
+}
+
+model SportsObject {
+  global_id                         String   @id
+  Card_CardAddedObjects             Card[]   @relation("CardAddedObjects")
+  location                          Location @relation(references: [id], fields: [locationId])
+  locationId                        String   @unique
+  ObjectName                        String?
+  NameWinter                        String?
+  AdmArea                           String?
+  District                          String?
+  Address                           String?
+  Email                             String?
+  WebSite                           String?
+  HelpPhone                         String?
+  HelpPhoneExtension                String?
+  WorkingHoursWinter                String?
+  ClarificationOfWorkingHoursWinter String?
+  HasEquipmentRental                String?
+  EquipmentRentalComments           String?
+  HasTechService                    String?
+  TechServiceComments               String?
+  HasDressingRoom                   String?
+  HasEatery                         String?
+  HasToilet                         String?
+  HasWifi                           String?
+  HasCashMachine                    String?
+  HasFirstAidPost                   String?
+  HasMusic                          String?
+  UsagePeriodWinter                 String?
+  DimensionsWinter                  String?
+  Lighting                          String?
+  SurfaceTypeWinter                 String?
+  Seats                             Int?
+  Paid                              String?
+  PaidComments                      String?
+  DisabilityFriendly                String?
+  ServicesWinter                    String?
+}
