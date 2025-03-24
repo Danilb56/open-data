@@ -4,17 +4,25 @@
 	"description": "",
 	"main": "src/index.js",
 	"scripts": {
+		"start": "node --env-file=.env ./src/index.js",
 		"dev": "nodemon --inspect --env-file=.env ./src/index.js"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"@prisma/client": "^6.5.0",
-		"express": "^4.21.2"
+		"cookie-parser": "^1.4.7",
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2"
 	},
 	"devDependencies": {
 		"nodemon": "^3.1.9",
 		"prisma": "^6.5.0"
 	},
-	"type": "module"
+	"type": "module",
+	"imports": {
+		"#utils/*": "./src/utils/*",
+		"#api/*": "./src/api/*",
+		"#core/*": "./src/core/*"
+	}
 }
