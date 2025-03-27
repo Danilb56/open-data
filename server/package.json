@@ -5,13 +5,15 @@
 	"main": "src/index.js",
 	"scripts": {
 		"start": "node --env-file=.env ./src/index.js",
-		"dev": "nodemon --inspect --env-file=.env ./src/index.js"
+		"dev": "nodemon --inspect --env-file=.env ./src/index.js",
+		"sports": "node --env-file=.env ./src/utils/scripts/sports-objects.js"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"@prisma/client": "^6.5.0",
 		"cookie-parser": "^1.4.7",
+		"csv-parser": "^3.2.0",
 		"express": "^4.21.2",
 		"jsonwebtoken": "^9.0.2"
 	},
