@@ -1,0 +1,22 @@
+.card {
+	border: 2px solid var(--border);
+	border-radius: 20px;
+	background-color: var(--muted-background);
+	padding: 80px 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.title {
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 32px;
+	text-wrap: wrap;
+	color: var(--blue);
+}
+
+.text {
+	font-size: 22px;
+}
