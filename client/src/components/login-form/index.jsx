@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Input from '#components/input';
 import Button from '#components/button';
 import styles from './styles.module.css';
+import { Link } from 'react-router';
 
 export default function Form() {
 	const [data, setData] = useState();
@@ -16,13 +17,17 @@ export default function Form() {
 			/>
 			<Input
 				label='Пароль'
-				name='new-password'
+				name='password'
 				type='password'
-				autoComplete='new-password'
+				autoComplete='password'
 			/>
-			<Button style={{ backgroundColor: 'var(--blue)' }}>
-				Зарегистрироваться
+			<Button
+				type='button'
+				style={{ backgroundColor: 'var(--blue)' }}
+			>
+				Войти
 			</Button>
+			<Link to={'/signup'}>У вас еще нет аккаунта?</Link>
 		</form>
 	);
 }

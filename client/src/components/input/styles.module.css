@@ -21,3 +21,13 @@
 .input:focus {
 	outline: 2px solid var(--blue);
 }
+
+.input.invalid {
+	outline: 2px solid var(--red);
+}
+
+.error {
+	color: var(--red);
+	font-size: 12px;
+	margin-left: 10px;
+}

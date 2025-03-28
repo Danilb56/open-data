@@ -14,13 +14,13 @@
 	--light-gray: hsl(217.9 10.6% 64.9%);
 	--dark-gray: hsl(240 5.2% 33.9%);
 	--white: hsl(210 20% 98%);
-	--white-muted: hsl(220 13% 91%);
+	--muted-white: hsl(220 13% 91%);
 	--blue: hsl(200.4 98% 39.4%);
 }
 
 html {
 	--background: var(--white);
-	--muted-background: var(--white-muted);
+	--muted-background: var(--muted-white);
 	--foreground: var(--dark);
 	--muted-foreground: var(--dark-gray);
 	--destructive: var(--red);
@@ -63,4 +63,15 @@ h2 {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
+
+a {
+	font-size: 18px;
+	color: var(--blue);
+	text-decoration-line: underline;
+	text-decoration-skip-ink: all;
+}
+
+a:visited {
+	color: var(--blue);
 }
