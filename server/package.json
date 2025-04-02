@@ -1,33 +1,35 @@
 {
-	"name": "server",
-	"version": "1.0.0",
-	"description": "",
-	"main": "src/index.js",
-	"scripts": {
-		"start": "node --env-file=.env ./src/index.js",
-		"dev": "nodemon --inspect --env-file=.env ./src/index.js",
-		"sports": "node --env-file=.env ./src/utils/scripts/sports-objects.js"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"@prisma/client": "^6.5.0",
-		"bcrypt": "^5.1.1",
-		"cookie-parser": "^1.4.7",
-		"cors": "^2.8.5",
-		"csv-parser": "^3.2.0",
-		"express": "^4.21.2",
-		"helmet": "^8.1.0",
-		"jsonwebtoken": "^9.0.2"
-	},
-	"devDependencies": {
-		"nodemon": "^3.1.9",
-		"prisma": "^6.5.0"
-	},
-	"type": "module",
-	"imports": {
-		"#utils/*": "./src/utils/*",
-		"#api/*": "./src/api/*",
-		"#core/*": "./src/core/*"
-	}
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node --env-file=.env ./src/index.js",
+    "dev": "nodemon --inspect --env-file=.env ./src/index.js",
+    "format": "prettier --write .",
+    "sports": "node --env-file=.env ./src/utils/scripts/sports-objects.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prettier": "3.5.3",
+    "prisma": "^6.5.0"
+  },
+  "type": "module",
+  "imports": {
+    "#utils/*": "./src/utils/*",
+    "#api/*": "./src/api/*",
+    "#core/*": "./src/core/*"
+  }
 }

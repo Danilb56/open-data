@@ -9,90 +9,88 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const MAX_AGE = 24 * 60 * 60 * 1000;
 
 function sendAuthCookie(res, token) {
-	res.cookie(ACCESS_TOKEN_KEY, token, {
-		maxAge: MAX_AGE,
-		httpOnly: true,
-	});
-	res.status(200).json({ success: true });
+  res.cookie(ACCESS_TOKEN_KEY, token, {
+    maxAge: MAX_AGE,
+    httpOnly: true,
+  });
+  res.status(200).json({ success: true });
 }
 
 router.get('/validate-access-token', (req, res) => {
-	if (!req.cookies.access_token) return res.sendStatus(401);
+  if (!req.cookies.access_token) return res.sendStatus(401);
 
-	const token = verifyAccessToken(req.cookies.access_token);
+  const token = verifyAccessToken(req.cookies.access_token);
 
-	if (!token) res.sendStatus(401);
+  if (!token) res.sendStatus(401);
 
-	res.json({
-		success: true,
-		user: { id: token.sub, role: token.role },
-	}).status(200);
+  res
+    .json({
+      success: true,
+      user: { id: token.sub, role: token.role },
+    })
+    .status(200);
 });
 
 router.get('/logout', (req, res) => {
-	res.clearCookie(ACCESS_TOKEN_KEY);
-	res.sendStatus(401);
+  res.clearCookie(ACCESS_TOKEN_KEY);
+  res.sendStatus(401);
 });
 
 router.get('/login', async (req, res) => {
-	const userCredentials = req.body.user;
-	if (!userCredentials)
-		return res
-			.status(400)
-			.json({ message: 'User credentials are required' });
+  const userCredentials = req.body.user;
+  if (!userCredentials)
+    return res.status(400).json({ message: 'User credentials are required' });
 
-	if (!userCredentials.email || !userCredentials.password)
-		return res
-			.status(400)
-			.json({ message: 'Email and password are required' });
+  if (!userCredentials.email || !userCredentials.password)
+    return res.status(400).json({ message: 'Email and password are required' });
 
-	const user = await userRepository.findUserByEmail(userCredentials.email);
+  const user = await userRepository.findUserByEmail(userCredentials.email);
 
-	if (!user)
-		return res
-			.status(400)
-			.json({ message: 'User with this email does not exist' });
+  if (!user)
+    return res
+      .status(400)
+      .json({ message: 'User with this email does not exist' });
 
-	if (!(await comparePassword(userCredentials.password, user.hashedPassword)))
-		return res.status(400).json({ message: 'Incorrect password' });
+  if (!(await comparePassword(userCredentials.password, user.hashedPassword)))
+    return res.status(400).json({ message: 'Incorrect password' });
 
-	const token = createAccessToken({ sub: user.id, role: 'user' }, MAX_AGE);
+  const token = createAccessToken({ sub: user.id, role: 'user' }, MAX_AGE);
 
-	sendAuthCookie(res, token);
+  sendAuthCookie(res, token);
 });
 
 router.post('/signup', async (req, res) => {
-	const userCredentials = req.body.user;
-	if (!userCredentials)
-		return res
-			.status(400)
-			.json({ message: 'User credentials are required' })
-			.send();
+  const userCredentials = req.body.user;
+  if (!userCredentials)
+    return res
+      .status(400)
+      .json({ message: 'User credentials are required' })
+      .send();
 
-	if (!userCredentials.email)
-		return res.status(400).json({ message: 'Email is required' }).send();
+  if (!userCredentials.email)
+    return res.status(400).json({ message: 'Email is required' }).send();
 
-	if (!userCredentials.password)
-		return res.status(400).json({ message: 'Password is required' }).send();
+  if (!userCredentials.password)
+    return res.status(400).json({ message: 'Password is required' }).send();
 
-	if (await userRepository.findUserByEmail(userCredentials.email))
-		return res
-			.status(400)
-			.json({
-				message: 'User with this email already exists',
-			})
-			.send();
+  if (await userRepository.findUserByEmail(userCredentials.email))
+    return res
+      .status(400)
+      .json({
+        message: 'User with this email already exists',
+      })
+      .send();
 
-	const { password, ...rest } = userCredentials;
+  const { password, ...rest } = userCredentials;
 
-	const user = await userRepository.createUser({
-		...rest,
-		hashedPassword: await hashPassword(password),
-	});
+  const user = await userRepository.createUser({
+    ...rest,
+    hashedPassword: await hashPassword(password),
+  });
 
-	const token = createAccessToken({ sub: user.id, role: 'user' }, MAX_AGE);
+  const token = createAccessToken({ sub: user.id, role: 'user' }, MAX_AGE);
 
-	sendAuthCookie(res, token);
+  sendAuthCookie(res, token);
 });
 
 export default router;

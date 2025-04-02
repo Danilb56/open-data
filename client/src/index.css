@@ -1,77 +1,77 @@
 @font-face {
-	font-family: 'Roboto';
-	src: url(Roboto.ttf);
+  font-family: 'Roboto';
+  src: url(Roboto.ttf);
 }
 @font-face {
-	font-family: 'Roboto italic';
-	src: url(Roboto-Italic.ttf);
+  font-family: 'Roboto italic';
+  src: url(Roboto-Italic.ttf);
 }
 
 :root {
-	--red: hsl(0 84.2% 60.2%);
-	--dark: hsl(240 5.9% 10%);
-	--gray: hsl(240 3.8% 46.1%);
-	--light-gray: hsl(217.9 10.6% 64.9%);
-	--dark-gray: hsl(240 5.2% 33.9%);
-	--white: hsl(210 20% 98%);
-	--muted-white: hsl(220 13% 91%);
-	--blue: hsl(200.4 98% 39.4%);
+  --red: hsl(0 84.2% 60.2%);
+  --dark: hsl(240 5.9% 10%);
+  --gray: hsl(240 3.8% 46.1%);
+  --light-gray: hsl(217.9 10.6% 64.9%);
+  --dark-gray: hsl(240 5.2% 33.9%);
+  --white: hsl(210 20% 98%);
+  --muted-white: hsl(220 13% 91%);
+  --blue: hsl(200.4 98% 39.4%);
 }
 
 html {
-	--background: var(--white);
-	--muted-background: var(--muted-white);
-	--foreground: var(--dark);
-	--muted-foreground: var(--dark-gray);
-	--destructive: var(--red);
-	--border: var(--light-gray);
-	font-family: Roboto;
-	font-size: 16px;
+  --background: var(--white);
+  --muted-background: var(--muted-white);
+  --foreground: var(--dark);
+  --muted-foreground: var(--dark-gray);
+  --destructive: var(--red);
+  --border: var(--light-gray);
+  font-family: Roboto;
+  font-size: 16px;
 }
 
 html.dark {
-	--background: var(--dark);
-	--foreground: var(--white);
-	--muted-foreground: var(--light-gray);
-	--destructive: var(--red);
-	--border: var(--gray);
+  --background: var(--dark);
+  --foreground: var(--white);
+  --muted-foreground: var(--light-gray);
+  --destructive: var(--red);
+  --border: var(--gray);
 }
 
 body {
-	margin: 0;
-	background-color: var(--background);
-	color: var(--foreground);
-	height: 100vh;
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  height: 100vh;
 }
 
 #root {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
-	font-size: 24px;
-	font-weight: 600;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 h2 {
-	font-size: 22px;
-	font-weight: 500;
+  font-size: 22px;
+  font-weight: 500;
 }
 
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-	font-size: 18px;
-	color: var(--blue);
-	text-decoration-line: underline;
-	text-decoration-skip-ink: all;
+  font-size: 18px;
+  color: var(--blue);
+  text-decoration-line: underline;
+  text-decoration-skip-ink: all;
 }
 
 a:visited {
-	color: var(--blue);
+  color: var(--blue);
 }

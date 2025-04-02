@@ -1,33 +1,33 @@
 .wrapper {
-	display: flex;
-	width: 100%;
-	flex-direction: column;
-	gap: 5px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .label {
-	font-size: 18px;
-	letter-spacing: 0.1rem;
+  font-size: 18px;
+  letter-spacing: 0.1rem;
 }
 
 .input {
-	font-size: 20px;
-	line-height: 24px;
-	padding: 2px 5px;
-	border: 2px solid transparent;
-	border-radius: 5px;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 2px 5px;
+  border: 2px solid transparent;
+  border-radius: 5px;
 }
 
 .input:focus {
-	outline: 2px solid var(--blue);
+  outline: 2px solid var(--blue);
 }
 
 .input.invalid {
-	outline: 2px solid var(--red);
+  outline: 2px solid var(--red);
 }
 
 .error {
-	color: var(--red);
-	font-size: 12px;
-	margin-left: 10px;
+  color: var(--red);
+  font-size: 12px;
+  margin-left: 10px;
 }

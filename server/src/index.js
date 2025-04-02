@@ -8,10 +8,10 @@ import cors from 'cors';
 const app = express();
 
 app.use(
-	cors({
-		origin: process.env.CLIENT_URL || 'http://localhost:5173',
-		credentials: true,
-	})
+  cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true,
+  }),
 );
 app.use(helmet());
 app.use(cookieParser());
@@ -20,19 +20,19 @@ app.use(withAuthMiddleware);
 
 app.use('/auth', authRouter);
 app.get('/', (req, res) => {
-	res.status(200).json({
-		message: 'Hello World from the server!',
-	});
+  res.status(200).json({
+    message: 'Hello World from the server!',
+  });
 });
 
 app.get('/info', (req, res) => {
-	res.send(process.env);
+  res.send(process.env);
 });
 
 app.get('/protected-route', (req, res) =>
-	res.status(200).json({ message: 'Protected route' })
+  res.status(200).json({ message: 'Protected route' }),
 );
 
 app.listen(3000, () => {
-	console.log('Listening on port 3000');
+  console.log('Listening on port 3000');
 });
