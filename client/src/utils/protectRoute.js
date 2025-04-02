@@ -1,12 +1,11 @@
 import { redirect } from 'react-router';
+import { validateAccessToken } from './validateAccessToken';
 export async function protectRoute(callback) {
-  const res = await fetch(
-    import.meta.env.API_URL ||
-      'http://localhost:3000' + '/auth/validate-access-token',
-    { cache: 'no-store', credentials: 'include' },
-  );
+  const res = await validateAccessToken();
 
   if (res.status == 401) return redirect('/login');
+
+  if (!callback) return;
 
   return await callback();
 }

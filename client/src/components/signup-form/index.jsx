@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import Input from '#components/input';
 import Button from '#components/button';
-import styles from './styles.module.css';
-import { signup } from './api';
+import Input from '#components/input';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { signup } from './api';
+import styles from './styles.module.css';
 
 export default function Form() {
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ export default function Form() {
     signup(data).then(async (res) => {
       if (res.status == 200) navigate('/');
       const { message } = await res.json();
+
       if (message == 'User with this email already exists')
         setError({
           email: 'Пользователь с таким email уже зарегистрирован',
@@ -64,7 +65,10 @@ export default function Form() {
         autoComplete="email"
         error={error.email}
         onChange={(e) =>
-          setData((prev) => ({ ...prev, email: e.target.value }))
+          setData((prev) => ({
+            ...prev,
+            email: e.target.value.trim().toLowerCase(),
+          }))
         }
       />
       <Input
