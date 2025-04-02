@@ -1,6 +1,8 @@
 export async function callApi(url, options) {
-	return await fetch(
+	const res = await fetch(
 		import.meta.env.API_URL || 'http://localhost:3000' + url,
-		options
+		{ ...options, credentials: 'include' }
 	);
+	if (res.status == 401) window.location.href = '/login';
+	return res;
 }

@@ -3,8 +3,13 @@ import { verifyAccessToken } from '#utils/jwt.js';
 const protectedRoutes = ['/protected-route'];
 
 export function withAuthMiddleware(req, res, next) {
-	if (!protectedRoutes.includes(req.url)) return next();
-	if (verifyAccessToken(req.cookies.access_token)) return next();
+	try {
+		if (!protectedRoutes.includes(req.url)) return next();
+		if (!req.cookies.access_token) return res.sendStatus(401);
+		if (verifyAccessToken(req.cookies.access_token)) return next();
 
-	res.redirect(301, process.env.CLIENT_URL || 'http://localhost:3030' + '/login');
+		res.sendStatus(401);
+	} catch (e) {
+		res.sendStatus(500);
+	}
 }
