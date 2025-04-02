@@ -12,7 +12,6 @@ export default function page() {
         style={{ backgroundColor: 'var(--blue)', width: '10rem' }}
         onClick={async () => {
           const res = await callApi('/auth/logout');
-          console.log(res);
         }}
       >
         Выйти
