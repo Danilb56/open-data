@@ -17,6 +17,44 @@ export default function Form() {
     password: '',
   });
 
+  const handleSignup = () => {
+    if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      setError({ email: 'Email введен неверно' });
+      return;
+    }
+
+    if (!data.password) {
+      setError({ password: 'Пароль обязателен' });
+      return;
+    }
+
+    if (data.password.length < 8) {
+      setError({ password: 'Пароль должен быть не менее 8 символов' });
+      return;
+    }
+
+    signup(data).then(async (res) => {
+      if (res.status == 200) navigate('/');
+      const { message } = await res.json();
+      if (message == 'User with this email already exists')
+        setError({
+          email: 'Пользователь с таким email уже зарегистрирован',
+        });
+
+      if (message == 'User credentials are required')
+        setError({
+          email: 'Email обязателен',
+          password: 'Пароль обязателен',
+        });
+
+      if (message == 'Email is required')
+        setError({ email: 'Email обязателен' });
+
+      if (message == 'Password is required')
+        setError({ password: 'Пароль обязателен' });
+    });
+  };
+
   return (
     <form className={styles.form}>
       <Input
@@ -42,28 +80,7 @@ export default function Form() {
       <Button
         style={{ backgroundColor: 'var(--blue)' }}
         type="button"
-        onClick={() =>
-          signup(data).then(async (res) => {
-            if (res.status == 200) navigate('/');
-            const { message } = await res.json();
-            if (message == 'User with this email already exists')
-              setError({
-                email: 'Пользователь с таким email уже зарегистрирован',
-              });
-
-            if (message == 'User credentials are required')
-              setError({
-                email: 'Email обязателен',
-                password: 'Пароль обязателен',
-              });
-
-            if (message == 'Email is required')
-              setError({ email: 'Email обязателен' });
-
-            if (message == 'Password is required')
-              setError({ password: 'Пароль обязателен' });
-          })
-        }
+        onClick={handleSignup}
       >
         Зарегистрироваться
       </Button>
