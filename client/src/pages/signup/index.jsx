@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-
+import { Link } from 'react-router';
 import Button from '#components/button';
 import CardSlider from '#components/card-slider';
 import SignUp from '#components/signup-form';
@@ -12,9 +12,11 @@ export default function page() {
         ' на уличных спортивных площадках. Бег, турники, брусья или групповые воркаут-занятия — здесь ты найдешь команду или' +
         ' напарника для мотивационных тренировок под открытым небом',
       content: (
-        <Button style={{ backgroundColor: 'var(--blue)' }}>
-          У меня уже есть аккаунт
-        </Button>
+        <Link to={'/login'}>
+          <Button style={{ backgroundColor: 'var(--blue)' }}>
+            У меня уже есть аккаунт
+          </Button>
+        </Link>
       ),
     },
     {
