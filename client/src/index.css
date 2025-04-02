@@ -31,10 +31,11 @@ html {
 
 html.dark {
   --background: var(--dark);
+  --muted-background: var(--dark);
   --foreground: var(--white);
   --muted-foreground: var(--light-gray);
   --destructive: var(--red);
-  --border: var(--gray);
+  --border: var(--light-gray);
 }
 
 body {

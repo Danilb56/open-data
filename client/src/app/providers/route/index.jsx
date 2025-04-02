@@ -9,22 +9,22 @@ const router = createBrowserRouter([
   {
     path: '/',
     loader: () => {
-      protectRoute();
+      return protectRoute();
     },
     element: <MainPage />,
   },
   {
     path: '/signup',
-    loader: () => {
-      const res = validateAccessToken();
+    loader: async () => {
+      const res = await validateAccessToken();
       if (res.status != 401) return redirect('/');
     },
     element: <SignupPage />,
   },
   {
     path: '/login',
-    loader: () => {
-      const res = validateAccessToken();
+    loader: async () => {
+      const res = await validateAccessToken();
       if (res.status != 401) return redirect('/');
     },
     element: <LoginPage />,
