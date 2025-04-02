@@ -39,7 +39,7 @@ html.dark {
 
 body {
   margin: 0;
-  background-color: var(--background);
+  background: var(--background) url('background.png') no-repeat center center;
   color: var(--foreground);
   height: 100vh;
 }

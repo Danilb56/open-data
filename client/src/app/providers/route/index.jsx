@@ -1,17 +1,13 @@
-import { createBrowserRouter } from 'react-router';
-import SignupPage from '#pages/signup';
 import LoginPage from '#pages/login';
 import MainPage from '#pages/main';
-import { callApi } from '#utils/callApi';
+import SignupPage from '#pages/signup';
+import { protectRoute } from '#utils/protectRoute';
+import { createBrowserRouter } from 'react-router';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    loader: async () => {
-      return await callApi('/auth/validate-access-token', {
-        cache: 'no-store',
-      });
-    },
+    loader: protectRoute,
     element: <MainPage />,
   },
   {
