@@ -5,8 +5,11 @@ import Map from '#components/map';
 import ScheduleInput from '#components/schedule-input';
 import { useState } from 'react';
 import styles from './styles.module.css';
+import { useLoaderData } from 'react-router';
 
 export default function page() {
+  const { markers } = useLoaderData();
+
   const [data, setData] = useState({
     name: '',
     age: '',
@@ -23,6 +26,7 @@ export default function page() {
     },
     sportsObjects: [],
   });
+
   const [error, setError] = useState({
     name: '',
     age: '',
@@ -109,7 +113,10 @@ export default function page() {
       text: '...или сразу несколько!',
       content: (
         <div className={styles.mapWrapper}>
-          <Map />
+          <Map
+            markers={markers}
+            selectable
+          />
         </div>
       ),
     },

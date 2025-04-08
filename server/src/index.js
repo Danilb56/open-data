@@ -1,5 +1,6 @@
 import express from 'express';
 import authRouter from '#api/routes/auth.js';
+import geoRouter from '#api/routes/geo.js';
 import cookieParser from 'cookie-parser';
 import { withAuthMiddleware } from '#api/middleware.js';
 import helmet from 'helmet';
@@ -19,6 +20,7 @@ app.use(express.json({ type: '*/json' }));
 app.use(withAuthMiddleware);
 
 app.use('/auth', authRouter);
+app.use('/geo', geoRouter);
 app.get('/', (req, res) => {
   res.status(200).json({
     message: 'Hello World from the server!',

@@ -1,7 +1,8 @@
 import LoginPage from '#pages/login';
 import MainPage from '#pages/main';
-import SignupPage from '#pages/signup';
 import OnboardingPage from '#pages/onboarding';
+import SignupPage from '#pages/signup';
+import { callApi } from '#utils/callApi';
 import { protectRoute } from '#utils/protectRoute';
 import { validateAccessToken } from '#utils/validateAccessToken.js';
 import { createBrowserRouter, redirect } from 'react-router';
@@ -32,6 +33,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/onboarding',
+
+    loader: async () => {
+      return protectRoute(async () => {
+        return await callApi('/geo/markers');
+      });
+    },
+
     element: <OnboardingPage />,
   },
 ]);
