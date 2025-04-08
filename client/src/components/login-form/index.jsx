@@ -54,6 +54,7 @@ export default function Form() {
         name="email"
         type="email"
         autoComplete="email"
+        id="email"
         error={error.email}
         onChange={(e) =>
           setData((prev) => ({
@@ -66,7 +67,8 @@ export default function Form() {
         label="Пароль"
         name="password"
         type="password"
-        autoComplete="password"
+        autoComplete="current-password"
+        id="password"
         error={error.password}
         onChange={(e) =>
           setData((prev) => ({ ...prev, password: e.target.value }))

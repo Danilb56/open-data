@@ -2,10 +2,29 @@ import Button from '#components/button';
 import { callApi } from '#utils/callApi';
 import { ThemeContext } from '#app/providers/theme';
 import { useContext } from 'react';
+import CardSlider from '#components/card-slider';
+
 import { Map } from '#components/map/index.jsx';
 export default function page() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const theme = useContext(ThemeContext);
+  const cards = [
+    {
+      title: 'StreetFit',
+      text:
+        'Это платформа для поиска единомышленников, с которыми можно вместе тренироваться' +
+        ' на уличных спортивных площадках. Бег, турники, брусья или групповые воркаут-занятия — здесь ты найдешь команду или' +
+        ' напарника для мотивационных тренировок под открытым небом',
+    },
+    {
+      title: 'Ищешь партнёра для утренних подтягиваний?',
+      text: 'Фильтры по локациям, уровню подготовки: от новичка до опытного атлета',
+    },
+    {
+      title: 'Готовы начать?',
+      text: 'Зарегистрируйтесь, заполните свою карточку, ищите новых друзей, и удачных Вам тренировок!',
+    },
+  ];
   return (
     <>
       <div>MainPage</div>
@@ -25,7 +44,11 @@ export default function page() {
       >
         Тема
       </Button>
-      <Map />
+      <CardSlider
+        cards={cards}
+        terminate={true}
+      />
+      {/* <Map /> */}
     </>
   );
 }

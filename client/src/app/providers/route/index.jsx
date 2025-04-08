@@ -1,6 +1,7 @@
 import LoginPage from '#pages/login';
 import MainPage from '#pages/main';
 import SignupPage from '#pages/signup';
+import OnboardingPage from '#pages/onboarding';
 import { protectRoute } from '#utils/protectRoute';
 import { validateAccessToken } from '#utils/validateAccessToken.js';
 import { createBrowserRouter, redirect } from 'react-router';
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       if (res.status != 401) return redirect('/');
     },
     element: <LoginPage />,
+  },
+  {
+    path: '/onboarding',
+    element: <OnboardingPage />,
   },
 ]);
 
