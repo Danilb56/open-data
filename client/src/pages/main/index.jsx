@@ -1,10 +1,9 @@
-import Button from '#components/button';
-import { callApi } from '#utils/callApi';
 import { ThemeContext } from '#app/providers/theme';
-import { useContext } from 'react';
+import Button from '#components/button';
 import CardSlider from '#components/card-slider';
+import { callApi } from '#utils/callApi';
+import { useContext } from 'react';
 
-import { Map } from '#components/map/index.jsx';
 export default function page() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const theme = useContext(ThemeContext);
@@ -48,7 +47,6 @@ export default function page() {
         cards={cards}
         terminate={true}
       />
-      {/* <Map /> */}
     </>
   );
 }

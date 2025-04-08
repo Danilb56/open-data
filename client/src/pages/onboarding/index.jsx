@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import CardSlider from '#components/card-slider';
 import Input from '#components/input';
-import SignUp from '#components/signup-form';
+import Map from '#components/map';
 import ScheduleInput from '#components/schedule-input';
 import { useState } from 'react';
 import styles from './styles.module.css';
@@ -107,7 +107,11 @@ export default function page() {
     {
       title: 'Выберите место',
       text: '...или сразу несколько!',
-      // content: <SignUp />,
+      content: (
+        <div className={styles.mapWrapper}>
+          <Map />
+        </div>
+      ),
     },
   ];
   return (

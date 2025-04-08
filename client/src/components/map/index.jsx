@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMap } from './useMap';
 import { MINIMAP_PROPS } from './vars';
 
-export const Map = () => {
+export default function Map() {
   const { ymaps, location } = useMap();
   const [showBounds, setShowBounds] = useState(MINIMAP_PROPS.showBounds);
 
@@ -12,19 +12,12 @@ export const Map = () => {
         <ymaps.YMap location={ymaps.reactify.useDefault(location, [location])}>
           <ymaps.YMapDefaultSchemeLayer />
           <ymaps.YMapDefaultFeaturesLayer />
-          <ymaps.YMapControls position="right bottom">
-            <ymaps.YMapMiniMap
-              {...MINIMAP_PROPS}
-              showBounds={showBounds}
-            />
-          </ymaps.YMapControls>
+          <ymaps.YMapControls position="right bottom"></ymaps.YMapControls>
           <ymaps.YMapDefaultMarker
-            {...{
-              coordinates: location.center,
-              color: 'red',
-              size: 'small',
-              iconName: 'fallback',
-            }}
+            coordinates={location.center}
+            color="red"
+            size="small"
+            iconName="fallback"
             onClick={() => {
               console.log('click');
             }}
@@ -33,4 +26,4 @@ export const Map = () => {
       </div>
     )
   );
-};
+}
