@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import Button from '#components/button';
 import CardSlider from '#components/card-slider';
 import Input from '#components/input';
 import Map from '#components/map';
 import ScheduleInput from '#components/schedule-input';
-import { useState } from 'react';
-import styles from './styles.module.css';
+import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
+import styles from './styles.module.css';
+import { validateFrom } from './validateFrom';
 
 export default function page() {
   const { markers } = useLoaderData();
@@ -16,15 +18,15 @@ export default function page() {
     phone: '',
     tgUsername: '',
     schedules: {
-      monday: { start: '00:00', end: '00:00', active: false, title: 'Пнд' },
-      tuesday: { start: '00:00', end: '00:00', active: false, title: 'Втр' },
-      wednesday: { start: '00:00', end: '00:00', active: false, title: 'Срд' },
-      thursday: { start: '00:00', end: '00:00', active: false, title: 'Чтв' },
-      friday: { start: '00:00', end: '00:00', active: false, title: 'Птн' },
-      saturday: { start: '00:00', end: '00:00', active: false, title: 'Сбт' },
-      sunday: { start: '00:00', end: '00:00', active: false, title: 'Вск' },
+      monday: { start: '00:00', end: '00:00', active: false },
+      tuesday: { start: '00:00', end: '00:00', active: false },
+      wednesday: { start: '00:00', end: '00:00', active: false },
+      thursday: { start: '00:00', end: '00:00', active: false },
+      friday: { start: '00:00', end: '00:00', active: false },
+      saturday: { start: '00:00', end: '00:00', active: false },
+      sunday: { start: '00:00', end: '00:00', active: false },
     },
-    sportsObjects: [],
+    locations: [],
   });
 
   const [error, setError] = useState({
@@ -33,9 +35,14 @@ export default function page() {
     phone: '',
     tgUsername: '',
     schedules: '',
-    sportsObjects: '',
+    locations: '',
   });
 
+  const [scrollTo, setScrollTo] = useState();
+
+  useEffect(() => {
+    setScrollTo((prev) => undefined);
+  }, [scrollTo]);
   const handleEmpty = (e) => {
     if (!e.target.value)
       setError((prev) => ({
@@ -48,7 +55,7 @@ export default function page() {
   const cards = [
     {
       title: 'Осталось немного',
-      text: 'Заполните свою карточку, позже вы сможете ее изменить в своем профиле',
+      text: 'Заполните свою карточку, позже Вы сможете ее изменить в своем профиле',
       content: (
         <div className={styles.form}>
           <Input
@@ -73,6 +80,11 @@ export default function page() {
             onChange={(e) => {
               setData((prev) => ({ ...prev, age: e.target.value }));
               handleEmpty(e);
+              if (Number(e.target.value) < 18)
+                setError((prev) => ({
+                  ...prev,
+                  age: 'Чтобы пользоваться сайтом, Вам должно быть не менее 18 лет',
+                }));
             }}
           />
         </div>
@@ -105,6 +117,7 @@ export default function page() {
               }
             />
           ))}
+          <span className={styles.error}>{error.schedules}</span>
         </div>
       ),
     },
@@ -112,11 +125,66 @@ export default function page() {
       title: 'Выберите место',
       text: '...или сразу несколько!',
       content: (
-        <div className={styles.mapWrapper}>
-          <Map
-            markers={markers}
-            selectable
+        <div className={styles.mapContainer}>
+          <div className={styles.mapWrapper}>
+            <Map
+              markers={markers}
+              selectable
+              onChange={(e) => {
+                setData((prev) => ({ ...prev, locations: e }));
+              }}
+            />
+          </div>
+          <span className={styles.error}>{error.locations}</span>
+        </div>
+      ),
+    },
+    {
+      title: 'Укажите свои контакты',
+      text:
+        'Выберите какие контакты увидит Ваш новый друг, когда Вы получите' +
+        ' взаимный лайк! Если оставите поля пустыми, то будет отображаться только email.',
+      content: (
+        <div className={styles.form}>
+          <Input
+            label="Номер телефона"
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            error={error.phone}
+            onChange={(e) => {
+              setData((prev) => ({ ...prev, phone: e.target.value }));
+            }}
           />
+          <Input
+            label="Telegram"
+            id="tgUsername"
+            name="tgUsername"
+            type="text"
+            autoComplete="off"
+            error={error.tgUsername}
+            onChange={(e) => {
+              setData((prev) => ({ ...prev, tgUsername: e.target.value }));
+            }}
+          />
+        </div>
+      ),
+    },
+    {
+      title: 'Проверьте все ли Вы заполнили',
+      content: (
+        <div className={styles.form}>
+          <Button
+            style={{ backgroundColor: 'var(--blue)' }}
+            onClick={() => {
+              if (validateFrom(data, setError, setScrollTo)) {
+                console.log('send data to server', data);
+              }
+            }}
+          >
+            Подтвердить
+          </Button>
         </div>
       ),
     },
@@ -125,7 +193,7 @@ export default function page() {
     <div className={styles.page}>
       <CardSlider
         cards={cards}
-        terminate={false}
+        scrollTo={scrollTo}
       />
     </div>
   );

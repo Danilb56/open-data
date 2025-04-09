@@ -20,3 +20,18 @@
 .text {
   font-size: 22px;
 }
+
+@media screen and (max-height: 700px) {
+  .card {
+    padding: 20px 10px;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}

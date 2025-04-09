@@ -16,3 +16,10 @@
   opacity: 1;
   background-color: var(--blue);
 }
+
+@media screen and (max-height: 700px) {
+  .button {
+    font-size: 20px;
+    padding: 2px 5px;
+  }
+}

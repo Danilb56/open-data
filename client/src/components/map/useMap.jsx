@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './styles.module.css';
 
-export const useMap = (markers, selectable) => {
+export const useMap = (markers, selectable, onChange) => {
   const [ymaps, setYmaps] = useState(null);
   const [location, setLocation] = useState({
     center: [37.576748, 55.660195],
@@ -26,6 +26,12 @@ export const useMap = (markers, selectable) => {
       id: marker.id,
     })),
   );
+
+  useEffect(() => {
+    if (!onChange) return;
+
+    onChange(points.filter((point) => point.selected).map((point) => point.id));
+  }, [points]);
 
   useEffect(() => {
     (async () => {

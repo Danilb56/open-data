@@ -2,10 +2,21 @@ import Card from '#components/card';
 import Button from '#components/button';
 import styles from './styles.module.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const CardSlider = (props) => {
-  const { className, cards, terminate = false, ...otherProps } = props;
+  const {
+    className,
+    cards,
+    terminate = false,
+    scrollTo,
+    ...otherProps
+  } = props;
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!scrollTo && scrollTo != 0) return;
+    setCurrent(scrollTo);
+  }, [scrollTo]);
 
   const nextCard = () => {
     setCurrent((prevIndex) =>
@@ -41,7 +52,19 @@ const CardSlider = (props) => {
         {!(cards.length - 1 == current && terminate) ? (
           <div className={styles.buttons}>
             {current != 0 && <Button onClick={prevCard}>Назад</Button>}
-            {cards.length - 1 && <Button onClick={nextCard}>Далее</Button>}
+            <Button
+              style={
+                cards.length - 1 == current
+                  ? {
+                      opacity: '0',
+                      pointerEvents: 'none',
+                    }
+                  : {}
+              }
+              onClick={nextCard}
+            >
+              Далее
+            </Button>
           </div>
         ) : (
           <></>

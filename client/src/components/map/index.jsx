@@ -1,9 +1,9 @@
 import { useMap } from './useMap.jsx';
 
 export default function Map(props) {
-  const { markers, selectable } = props;
+  const { markers, selectable, onChange } = props;
   const { ymaps, location, setCurrentLocation, marker, cluster, points } =
-    useMap(markers, selectable);
+    useMap(markers, selectable, onChange);
 
   return (
     ymaps && (

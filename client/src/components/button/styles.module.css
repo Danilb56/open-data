@@ -10,3 +10,9 @@
   width: 100%;
   cursor: pointer;
 }
+
+@media screen and (max-height: 700px) {
+  .button {
+    font-size: 20px;
+  }
+}

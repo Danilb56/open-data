@@ -12,9 +12,23 @@
   gap: 10px;
 }
 
+.mapContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
 .mapWrapper {
-  height: 60%;
-  overflow: hidden;
+  height: 80%;
   border-radius: 20px;
   border: 2px solid var(--border);
+  overflow: hidden;
+}
+
+.error {
+  color: var(--red);
+  font-size: 12px;
+  margin-left: 10px;
+  display: block;
 }
