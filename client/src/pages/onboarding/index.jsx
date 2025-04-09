@@ -175,7 +175,7 @@ export default function page() {
       ),
     },
     {
-      title: 'Проверьте все ли Вы заполнили',
+      title: 'Проверьте, все ли Вы заполнили',
       content: (
         <div className={styles.form}>
           <Button
