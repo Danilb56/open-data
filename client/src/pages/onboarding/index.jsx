@@ -8,9 +8,12 @@ import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import styles from './styles.module.css';
 import { validateFrom } from './validateFrom';
+import { createCard } from './api';
+import { useNavigate } from 'react-router';
 
 export default function page() {
   const { markers } = useLoaderData();
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     name: '',
@@ -179,7 +182,11 @@ export default function page() {
             style={{ backgroundColor: 'var(--blue)' }}
             onClick={() => {
               if (validateFrom(data, setError, setScrollTo)) {
-                console.log('send data to server', data);
+                createCard(data)
+                  .then((res) => res.json())
+                  .then((data) => {
+                    navigate('/');
+                  });
               }
             }}
           >

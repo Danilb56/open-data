@@ -5,6 +5,7 @@ import {
 } from '#api/middleware.js';
 import authRouter from '#api/routes/auth.js';
 import geoRouter from '#api/routes/geo.js';
+import userRouter from '#api/routes/user.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -28,6 +29,8 @@ app.use(errorMiddleware);
 
 app.use('/auth', authRouter);
 app.use('/geo', geoRouter);
+app.use('/user', userRouter);
+
 app.get('/', (req, res) => {
   res.status(200).json({
     message: 'Hello World from the server!',

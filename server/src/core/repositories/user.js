@@ -25,6 +25,27 @@ class UserRepository {
     const updatedUser = await prisma.user.update({ where: { id }, data: user });
     return updatedUser;
   }
+
+  async createCard(userId, data) {
+    const createdCard = await prisma.card.create({
+      data: {
+        schedules: {
+          create: Object.entries(data.schedules)
+            .filter(([, schedule]) => schedule.active)
+            .map(([day, schedule]) => ({
+              dayOfWeek: day,
+              startTime: schedule.start,
+              endTime: schedule.end,
+            })),
+        },
+        SportsObject_CardAddedObjects: {
+          connect: data.locations.map((id) => ({ locationId: id })),
+        },
+        authorId: userId,
+      },
+    });
+    return createdCard;
+  }
 }
 
 export const userRepository = new UserRepository();

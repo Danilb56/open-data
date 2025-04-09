@@ -3,6 +3,6 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('/markers', (req, res) => userController.getMarkers(req, res));
+router.post('/create-card', (req, res) => userController.createCard(req, res));
 
 export default router;

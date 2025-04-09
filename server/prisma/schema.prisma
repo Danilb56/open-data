@@ -21,11 +21,11 @@ model Location {
 }
 
 model Schedule {
-  id        String   @id @default(uuid())
+  id        String @id @default(uuid())
   dayOfWeek String
-  startTime DateTime
-  endTime   DateTime
-  card      Card     @relation(fields: [cardId], references: [id])
+  startTime String
+  endTime   String
+  card      Card   @relation(fields: [cardId], references: [id])
   cardId    String
 }
 
