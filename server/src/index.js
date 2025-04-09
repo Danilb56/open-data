@@ -1,10 +1,14 @@
-import express from 'express';
+import {
+  ctxMiddleware,
+  withAuthMiddleware,
+  errorMiddleware,
+} from '#api/middleware.js';
 import authRouter from '#api/routes/auth.js';
 import geoRouter from '#api/routes/geo.js';
 import cookieParser from 'cookie-parser';
-import { withAuthMiddleware } from '#api/middleware.js';
-import helmet from 'helmet';
 import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
 
 const app = express();
 
@@ -17,7 +21,10 @@ app.use(
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json({ type: '*/json' }));
-app.use(withAuthMiddleware);
+
+// Middleware
+app.use(ctxMiddleware);
+app.use(errorMiddleware);
 
 app.use('/auth', authRouter);
 app.use('/geo', geoRouter);
@@ -31,7 +38,7 @@ app.get('/info', (req, res) => {
   res.send(process.env);
 });
 
-app.get('/protected-route', (req, res) =>
+app.get('/protected-route', withAuthMiddleware, (req, res) =>
   res.status(200).json({ message: 'Protected route' }),
 );
 
