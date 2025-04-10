@@ -7,7 +7,9 @@
     "start": "node --env-file=.env ./src/index.js",
     "dev": "nodemon --inspect --env-file=.env ./src/index.js",
     "format": "prettier --write .",
-    "sports": "node --env-file=.env ./src/utils/scripts/sports-objects.js"
+    "sports": "node --env-file=.env ./src/utils/scripts/sports-objects.js",
+    "fake": "node --env-file=.env ./src/utils/scripts/test-data.js",
+    "clear": "node --env-file=.env ./src/utils/scripts/clear.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
     "nodemon": "^3.1.9",
     "prettier": "3.5.3",
     "prisma": "^6.5.0"
