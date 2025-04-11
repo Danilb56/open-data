@@ -11,7 +11,9 @@ const router = createBrowserRouter([
   {
     path: '/',
     loader: () => {
-      return protectRoute();
+      return protectRoute(async () => {
+        return await callApi('/user/cards');
+      });
     },
     element: <MainPage />,
   },

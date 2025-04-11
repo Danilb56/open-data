@@ -1,29 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { ThemeContext } from '#app/providers/theme';
 import Button from '#components/button';
-import CardSlider from '#components/card-slider';
 import { callApi } from '#utils/callApi';
 import { useContext } from 'react';
+import { useLoaderData } from 'react-router';
 
 export default function page() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const data = useLoaderData();
   const theme = useContext(ThemeContext);
-  const cards = [
-    {
-      title: 'StreetFit',
-      text:
-        'Это платформа для поиска единомышленников, с которыми можно вместе тренироваться' +
-        ' на уличных спортивных площадках. Бег, турники, брусья или групповые воркаут-занятия — здесь ты найдешь команду или' +
-        ' напарника для мотивационных тренировок под открытым небом',
-    },
-    {
-      title: 'Ищешь партнёра для утренних подтягиваний?',
-      text: 'Фильтры по локациям, уровню подготовки: от новичка до опытного атлета',
-    },
-    {
-      title: 'Готовы начать?',
-      text: 'Зарегистрируйтесь, заполните свою карточку, ищите новых друзей, и удачных Вам тренировок!',
-    },
-  ];
+
   return (
     <>
       <div>MainPage</div>
@@ -43,10 +28,33 @@ export default function page() {
       >
         Тема
       </Button>
-      <CardSlider
-        cards={cards}
-        terminate={true}
-      />
+      <div>
+        {data.map((el) => {
+          return (
+            <div key={el.id}>
+              <div>
+                {Math.round(el.score)},{el.author.age},{' '}
+              </div>
+              {el.schedules.map((schedule) => {
+                return (
+                  <div key={schedule.id}>
+                    {schedule.dayOfWeek}, {schedule.startTime},{' '}
+                    {schedule.endTime}, {schedule.overlap}
+                  </div>
+                );
+              })}
+              {el.distances.reduce(
+                (str, curr) => str + ', ' + Math.round(curr),
+                '',
+              )}
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
