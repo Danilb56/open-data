@@ -1,0 +1,29 @@
+.button {
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: none;
+  background-color: var(--background);
+  border: 2px solid var(--border);
+  border-radius: 25px;
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .button {
+    border: none;
+    flex: 1;
+    border-radius: 0;
+    padding: 5px 0;
+    justify-content: center;
+  }
+  .button span {
+    display: none;
+  }
+}

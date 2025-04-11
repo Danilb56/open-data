@@ -5,6 +5,7 @@
 
 .day {
   background-color: var(--blue);
+  color: var(--white);
   font-weight: bolder;
   padding: 5px 8px;
   border-radius: 5px;
