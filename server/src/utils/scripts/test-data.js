@@ -92,8 +92,6 @@ function createCard() {
     const createdCard = await prisma.card.create({
       data: { ...card, authorId: createdUser.id },
     });
-    console.log(createdUser);
-    console.log(createdCard);
   });
 })()
   .catch((e) => {

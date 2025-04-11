@@ -58,8 +58,9 @@ class UserController {
         ).sort((a, b) => a - b);
 
         const overlappingSchedules = card.schedules
-          .filter((schedule) => days.includes(schedule.dayOfWeek))
           .map((schedule) => {
+            if (!days.includes(schedule.dayOfWeek))
+              return { ...schedule, overlap: 0 };
             const userSchedule = userCard.schedules.find(
               (userSchedule) => userSchedule.dayOfWeek === schedule.dayOfWeek,
             );
@@ -90,8 +91,23 @@ class UserController {
           ...card,
           score,
           ageDiff,
-          distances,
-          schedules: overlappingSchedules,
+          distances: distances.map((distance) => {
+            if (distance / 1000 > 1)
+              return (distance / 1000).toFixed(2) + ' км';
+            return Math.round(distance) + ' м';
+          }),
+          schedules: overlappingSchedules.sort((a, b) => {
+            const days = [
+              'monday',
+              'tuesday',
+              'wednesday',
+              'thursday',
+              'friday',
+              'saturday',
+              'sunday',
+            ];
+            return days.indexOf(a.dayOfWeek) - days.indexOf(b.dayOfWeek);
+          }),
         };
       })
       .sort((a, b) => b.score - a.score);
