@@ -79,13 +79,13 @@ export default function Card(props) {
             <div className={styles.actions}>
               <button
                 className={styles.action}
-                onClick={() => onLike(card.id)}
+                onClick={() => onDislike(card.id)}
               >
                 <HeartOff strokeWidth={3} />
               </button>
               <button
                 className={styles.action}
-                onClick={() => onDislike(card.id)}
+                onClick={() => onLike(card.id)}
               >
                 <Heart strokeWidth={3} />
               </button>
