@@ -9,7 +9,8 @@
 
 :root {
   --red: hsl(0 84.2% 60.2%);
-  --dark: hsl(240 5.9% 10%);
+  --dark: hsl(240, 9%, 7%);
+  --muted-dark: hsl(240 5.9% 10%);
   --gray: hsl(240 3.8% 46.1%);
   --light-gray: hsl(217.9 10.6% 64.9%);
   --dark-gray: hsl(240 5.2% 33.9%);
@@ -31,9 +32,9 @@ html {
 
 html.dark {
   --background: var(--dark);
-  --muted-background: var(--dark);
+  --muted-background: var(--muted-dark);
   --foreground: var(--white);
-  --muted-foreground: var(--light-gray);
+  --muted-foreground: var(--muted-white);
   --destructive: var(--red);
   --border: var(--light-gray);
 }

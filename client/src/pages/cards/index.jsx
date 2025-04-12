@@ -15,6 +15,8 @@ export default function page() {
   const [data, setData] = useState(initialData);
 
   const handleLike = (id) => {
+    setData((prev) => prev.filter((card) => card.id !== id));
+
     callApi('/likes/like', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -23,16 +25,17 @@ export default function page() {
   };
 
   const handleDislike = (id) => {
+    setData((prev) => prev.filter((card) => card.id !== id));
+
     callApi('/likes/dislike', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify({ cardId: id }),
     });
   };
-  const handleRemove = (id) => {
+  const handleSwipe = (id) => {
     const callback = (side) => {
       if (!side) return;
-      if (side) setData((prev) => prev.filter((card) => card.id !== id));
       if (side === 'right') {
         handleLike(id);
         return;
@@ -80,9 +83,13 @@ export default function page() {
         {data.map((card) => (
           <SwipeableCard
             key={card.id}
-            onRemove={handleRemove(card.id)}
+            onSwipe={handleSwipe(card.id)}
           >
-            <UserCard card={card} />
+            <UserCard
+              card={card}
+              onLike={handleLike}
+              onDislike={handleDislike}
+            />
           </SwipeableCard>
         ))}
       </AnimatePresence>

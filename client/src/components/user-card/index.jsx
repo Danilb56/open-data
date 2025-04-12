@@ -2,6 +2,7 @@ import styles from './styles.module.css';
 import ScheduleBatch from '#components/schedule-batch';
 import Map from '#components/map';
 import { useState } from 'react';
+import { HeartOff, Heart } from 'lucide-react';
 
 const UserCard = (props) => {
   const { title, text, content, className, ...otherProps } = props;
@@ -19,7 +20,7 @@ const UserCard = (props) => {
 };
 
 export default function Card(props) {
-  const { card, ...otherProps } = props;
+  const { card, onLike, onDislike, ...otherProps } = props;
   const [schedulesExpanded, setSchedulesExpanded] = useState(false);
   const [mapExpanded, setMapExpanded] = useState(false);
   return (
@@ -73,6 +74,22 @@ export default function Card(props) {
             >
               {schedulesExpanded ? 'Скрыть' : 'Показать все дни'}
             </span>
+          )}
+          {onLike && onDislike && (
+            <div className={styles.actions}>
+              <button
+                className={styles.action}
+                onClick={() => onLike(card.id)}
+              >
+                <HeartOff strokeWidth={3} />
+              </button>
+              <button
+                className={styles.action}
+                onClick={() => onDislike(card.id)}
+              >
+                <Heart strokeWidth={3} />
+              </button>
+            </div>
           )}
         </>
       }

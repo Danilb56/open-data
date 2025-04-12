@@ -15,7 +15,7 @@
   font-weight: bold;
   font-size: 24px;
   text-wrap: wrap;
-  color: var(--blue);
+  color: var(--foreground);
 }
 
 .text {
@@ -41,4 +41,40 @@
   border: 2px solid var(--border);
   overflow: hidden;
   margin-top: auto;
+}
+
+.actions {
+  margin-top: auto;
+  display: flex;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.action {
+  flex: 1;
+  cursor: pointer;
+  border: none;
+  background-color: var(--background);
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--muted-foreground);
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.action:hover {
+  color: var(--white);
+  background-color: var(--muted-background);
+}
+
+.action:first-child:hover {
+  color: var(--blue);
+}
+
+.action:last-child:hover {
+  color: var(--destructive);
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 const SwipeableCard = (props) => {
-  const { className, children, onRemove, ...otherProps } = props;
+  const { children, onSwipe, ...otherProps } = props;
   const [removing, setRemoving] = useState(undefined);
 
   const swipeHandlers = useSwipeable({
@@ -17,7 +17,7 @@ const SwipeableCard = (props) => {
   });
 
   useEffect(() => {
-    if (removing) onRemove(removing);
+    if (removing) onSwipe(removing);
   }, [removing]);
 
   return (

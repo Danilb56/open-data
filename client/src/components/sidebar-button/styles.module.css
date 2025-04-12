@@ -13,6 +13,11 @@
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--muted-background);
 }
 
 @media screen and (max-width: 800px) {
