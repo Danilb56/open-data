@@ -4,7 +4,7 @@ class CardRepository {
   async getAll() {
     return await prisma.card.findMany({
       include: {
-        author: true,
+        author: { select: { name: true, age: true } },
         schedules: true,
         SportsObject_CardAddedObjects: { select: { location: true } },
       },

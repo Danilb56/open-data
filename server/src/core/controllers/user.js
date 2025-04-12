@@ -1,4 +1,5 @@
 import { cardRepository } from '#core/repositories/card.js';
+import { likeRepository } from '#core/repositories/like.js';
 import { userRepository } from '#core/repositories/user.js';
 import { getDistanceInMeters } from '#utils/distance.js';
 import { timeToMin } from '#utils/timeToMin.js';
@@ -22,9 +23,15 @@ class UserController {
 
   async getCards(req, res) {
     const userId = req.ctx.sub;
+
     const user = await userRepository.findUserById(userId);
     const userCard = await cardRepository.getCardByAuthorId(userId);
     const cards = await cardRepository.getAll();
+
+    const userLikes = await likeRepository.getUserLikes(userId);
+    const userDislikes = await likeRepository.getUserDislikes(userId);
+    const whoDislikedCard = await likeRepository.whoDislikedCard(userCard.id);
+    const whoLikedCard = await likeRepository.whoLikedCard(userCard.id);
 
     const normalizedLocation = userCard.SportsObject_CardAddedObjects.reduce(
       (location, sportsObj, index, arr) => {
@@ -40,6 +47,16 @@ class UserController {
     let maxDistance = 0;
 
     const scoredCards = cards
+      .filter(
+        (card) =>
+          card.id !== userCard.id &&
+          !userLikes.find((like) => like.cardId === card.id) &&
+          !userDislikes.find((dislike) => dislike.cardId === card.id) &&
+          !whoDislikedCard.find(
+            (dislike) => dislike.userId === card.author.id,
+          ) &&
+          !whoLikedCard.find((like) => like.userId === card.author.id),
+      )
       .map((card) => {
         let score = 0;
         const ageDiff = Math.abs(user.age - card.author.age);
