@@ -19,7 +19,7 @@ const UserCard = (props) => {
 };
 
 export default function Card(props) {
-  const { card } = props;
+  const { card, ...otherProps } = props;
   const [schedulesExpanded, setSchedulesExpanded] = useState(false);
   const [mapExpanded, setMapExpanded] = useState(false);
   return (
@@ -42,6 +42,16 @@ export default function Card(props) {
       })()}
       content={
         <>
+          {mapExpanded && (
+            <div className={styles.map}>
+              <Map
+                markers={card.SportsObject_CardAddedObjects.map(
+                  (obj) => obj.location,
+                )}
+                selectable={false}
+              />
+            </div>
+          )}
           {card.schedules.map(
             (schedule) =>
               (schedulesExpanded || schedule.overlap > 0) && (
@@ -64,18 +74,9 @@ export default function Card(props) {
               {schedulesExpanded ? 'Скрыть' : 'Показать все дни'}
             </span>
           )}
-          {mapExpanded && (
-            <div className={styles.map}>
-              <Map
-                markers={card.SportsObject_CardAddedObjects.map(
-                  (obj) => obj.location,
-                )}
-                selectable={false}
-              />
-            </div>
-          )}
         </>
       }
+      {...otherProps}
     />
   );
 }
