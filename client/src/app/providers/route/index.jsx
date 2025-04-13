@@ -4,6 +4,7 @@ import OnboardingPage from '#pages/onboarding';
 import SignupPage from '#pages/signup';
 import Cards from '#pages/cards';
 import Likes from '#pages/likes';
+import Contacts from '#pages/contacts';
 import { callApi } from '#utils/callApi';
 import { protectRoute } from '#utils/protectRoute';
 import { validateAccessToken } from '#utils/validateAccessToken.js';
@@ -32,6 +33,15 @@ const router = createBrowserRouter([
           });
         },
         element: <Likes />,
+      },
+      {
+        path: '/contacts',
+        loader: () => {
+          return protectRoute(async () => {
+            return await callApi('/user/contacts');
+          });
+        },
+        element: <Contacts />,
       },
     ],
   },

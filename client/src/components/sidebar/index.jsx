@@ -52,19 +52,24 @@ const Sidebar = (props) => {
           Лайки
         </SidebarButton>
       </Link>
-      <SidebarButton
-        icon={
-          <Users
-            color={
-              location.pathname === '/contacts'
-                ? 'var(--blue)'
-                : 'var(--muted-foreground)'
-            }
-          />
-        }
+      <Link
+        style={{ display: 'contents' }}
+        to={'/contacts'}
       >
-        Контакты
-      </SidebarButton>
+        <SidebarButton
+          icon={
+            <Users
+              color={
+                location.pathname === '/contacts'
+                  ? 'var(--blue)'
+                  : 'var(--muted-foreground)'
+              }
+            />
+          }
+        >
+          Контакты
+        </SidebarButton>
+      </Link>
       <SidebarButton
         icon={
           <User

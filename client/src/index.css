@@ -66,6 +66,7 @@ h2 {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: color, background-color 0.2s ease-in-out;
 }
 
 a {

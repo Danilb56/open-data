@@ -75,6 +75,26 @@ export default function Card(props) {
               {schedulesExpanded ? 'Скрыть' : 'Показать все дни'}
             </span>
           )}
+          {card.author.email && (
+            <p>
+              {'Email: '}
+              <a href={`mailto:${card.author.email}`}>{card.author.email}</a>
+            </p>
+          )}
+          {card.author.phone && (
+            <p>
+              {'Телефон: '}
+              <a href={`tel:${card.author.phone}`}>{card.author.phone}</a>
+            </p>
+          )}
+          {card.author.tgUsername && (
+            <p>
+              {'Telegram: '}
+              <a href={`https://t.me/${card.author.tgUsername}`}>
+                {card.author.tgUsername}
+              </a>
+            </p>
+          )}
           {onLike && onDislike && (
             <div className={styles.actions}>
               <button
