@@ -21,6 +21,97 @@ class UserController {
     res.json(createdCard).status(201);
   }
 
+  async getLikes(req, res) {
+    const userId = req.ctx.sub;
+
+    const userCard = await cardRepository.getCardByAuthorId(userId);
+    const cards = await cardRepository.getCardsWhoLiked(userId);
+    const userLikes = await likeRepository.getUserLikes(userId);
+    const userDislikes = await likeRepository.getUserDislikes(userId);
+
+    const normalizedLocation = userCard.SportsObject_CardAddedObjects.reduce(
+      (location, sportsObj, index, arr) => {
+        return {
+          x: location.x + sportsObj.location.x / arr.length,
+          y: location.y + sportsObj.location.y / arr.length,
+        };
+      },
+      { x: 0, y: 0 },
+    );
+
+    const days = userCard.schedules.map((schedule) => schedule.dayOfWeek);
+    let maxDistance = 0;
+
+    const scoredCards = cards
+      .filter(
+        (card) =>
+          card.id !== userCard.id &&
+          !userLikes.find((like) => like.cardId === card.id) &&
+          !userDislikes.find((dislike) => dislike.cardId === card.id),
+      )
+      .map((card) => {
+        const distances = card.SportsObject_CardAddedObjects.reduce(
+          (arr, sportsObj) => {
+            const distance = getDistanceInMeters(
+              normalizedLocation.y,
+              normalizedLocation.x,
+              sportsObj.location.y,
+              sportsObj.location.x,
+            );
+            if (distance > maxDistance) maxDistance = distance;
+            return [...arr, distance];
+          },
+          [],
+        ).sort((a, b) => a - b);
+
+        const overlappingSchedules = card.schedules
+          .map((schedule) => {
+            if (!days.includes(schedule.dayOfWeek))
+              return { ...schedule, overlap: 0 };
+            const userSchedule = userCard.schedules.find(
+              (userSchedule) => userSchedule.dayOfWeek === schedule.dayOfWeek,
+            );
+
+            const overlapStart = Math.max(
+              timeToMin(userSchedule.startTime),
+              timeToMin(schedule.startTime),
+            );
+            const overlapEnd = Math.min(
+              timeToMin(userSchedule.endTime),
+              timeToMin(schedule.endTime),
+            );
+
+            if (overlapStart < overlapEnd) {
+              return { ...schedule, overlap: overlapEnd - overlapStart };
+            } else return { ...schedule, overlap: 0 };
+          })
+          .sort((a, b) => b.overlap - a.overlap);
+
+        return {
+          ...card,
+          distances: distances.map((distance) => {
+            if (distance / 1000 > 1)
+              return (distance / 1000).toFixed(2) + ' км';
+            return Math.round(distance) + ' м';
+          }),
+          schedules: overlappingSchedules.sort((a, b) => {
+            const days = [
+              'monday',
+              'tuesday',
+              'wednesday',
+              'thursday',
+              'friday',
+              'saturday',
+              'sunday',
+            ];
+            return days.indexOf(a.dayOfWeek) - days.indexOf(b.dayOfWeek);
+          }),
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+    res.json(scoredCards).status(200);
+  }
+
   async getCards(req, res) {
     const userId = req.ctx.sub;
 

@@ -2,7 +2,7 @@
   cursor: pointer;
   font-size: 24px;
   font-weight: 500;
-  color: var(--foreground);
+  color: var(--muted-foreground);
   text-decoration: none;
   background-color: var(--background);
   border: 2px solid var(--border);

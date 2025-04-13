@@ -2,11 +2,13 @@ import SidebarButton from '#components/sidebar-button';
 import styles from './styles.module.css';
 import { Dock, Heart, User, Users, LogOut, SunMoon } from 'lucide-react';
 import { ThemeContext } from '#app/providers/theme';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { callApi } from '#utils/callApi';
+import { Link, useLocation } from 'react-router';
 
 const Sidebar = (props) => {
   const { className, ...otherProps } = props;
+  const location = useLocation();
   const theme = useContext(ThemeContext);
 
   return (
@@ -14,10 +16,68 @@ const Sidebar = (props) => {
       className={styles.sidebar + (className ? ' ' + className : '')}
       {...otherProps}
     >
-      <SidebarButton icon={<Dock />}>Главная</SidebarButton>
-      <SidebarButton icon={<Heart />}>Лайки</SidebarButton>
-      <SidebarButton icon={<Users />}>Контакты</SidebarButton>
-      <SidebarButton icon={<User />}>Профиль</SidebarButton>
+      <Link
+        style={{ display: 'contents' }}
+        to={'/'}
+      >
+        <SidebarButton
+          icon={
+            <Dock
+              color={
+                location.pathname === '/'
+                  ? 'var(--blue)'
+                  : 'var(--muted-foreground)'
+              }
+            />
+          }
+        >
+          Главная
+        </SidebarButton>{' '}
+      </Link>
+      <Link
+        style={{ display: 'contents' }}
+        to={'/likes'}
+      >
+        <SidebarButton
+          icon={
+            <Heart
+              color={
+                location.pathname === '/likes'
+                  ? 'var(--destructive)'
+                  : 'var(--muted-foreground)'
+              }
+            />
+          }
+        >
+          Лайки
+        </SidebarButton>
+      </Link>
+      <SidebarButton
+        icon={
+          <Users
+            color={
+              location.pathname === '/contacts'
+                ? 'var(--blue)'
+                : 'var(--muted-foreground)'
+            }
+          />
+        }
+      >
+        Контакты
+      </SidebarButton>
+      <SidebarButton
+        icon={
+          <User
+            color={
+              location.pathname === '/profile'
+                ? 'var(--blue)'
+                : 'var(--muted-foreground)'
+            }
+          />
+        }
+      >
+        Профиль
+      </SidebarButton>
       <SidebarButton
         icon={<SunMoon />}
         onClick={() =>

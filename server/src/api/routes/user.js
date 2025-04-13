@@ -7,4 +7,6 @@ router.post('/create-card', (req, res) => userController.createCard(req, res));
 
 router.get('/cards', (req, res) => userController.getCards(req, res));
 
+router.get('/likes', (req, res) => userController.getLikes(req, res));
+
 export default router;

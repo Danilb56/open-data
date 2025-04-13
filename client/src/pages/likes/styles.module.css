@@ -2,10 +2,11 @@
   padding-top: 40px;
   padding-inline: 20px;
   width: 100%;
-  /* height: min-content; */
+  height: min-content;
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fill, min-content);
   gap: 20px;
 }
 

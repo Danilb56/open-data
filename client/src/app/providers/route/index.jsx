@@ -3,6 +3,7 @@ import MainPage from '#pages/main';
 import OnboardingPage from '#pages/onboarding';
 import SignupPage from '#pages/signup';
 import Cards from '#pages/cards';
+import Likes from '#pages/likes';
 import { callApi } from '#utils/callApi';
 import { protectRoute } from '#utils/protectRoute';
 import { validateAccessToken } from '#utils/validateAccessToken.js';
@@ -22,6 +23,15 @@ const router = createBrowserRouter([
           });
         },
         element: <Cards />,
+      },
+      {
+        path: '/likes',
+        loader: () => {
+          return protectRoute(async () => {
+            return await callApi('/user/likes');
+          });
+        },
+        element: <Likes />,
       },
     ],
   },

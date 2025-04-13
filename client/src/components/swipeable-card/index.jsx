@@ -23,8 +23,11 @@ const SwipeableCard = (props) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: removing === 'left' ? -300 : 300 }}
+      initial={{ opacity: 1, x: 0, y: 0 }}
+      exit={{
+        opacity: 0,
+        x: removing ? (removing === 'left' ? -300 : 300) : 0,
+      }}
       transition={{ duration: 0.2 }}
       {...swipeHandlers}
     >

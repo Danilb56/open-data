@@ -44,6 +44,7 @@ body {
   background: var(--background) url('background.png') no-repeat center center;
   color: var(--foreground);
   height: 100vh;
+  overflow: hidden;
 }
 
 #root {
