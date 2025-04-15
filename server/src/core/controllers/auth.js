@@ -38,7 +38,7 @@ class AuthController {
 
     if (await userRepository.findUserByEmail(userCredentials.email))
       return res
-        .status(400)
+        .status(409)
         .json({
           message: 'User with this email already exists',
         })
