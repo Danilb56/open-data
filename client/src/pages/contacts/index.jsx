@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import UserCard from '#components/user-card';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router';
 import styles from './styles.module.css';
 
-export default function page() {
+export default function Page() {
   const initialData = useLoaderData();
 
   const [data, setData] = useState(initialData);

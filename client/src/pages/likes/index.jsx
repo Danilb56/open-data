@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import SwipeableCard from '#components/swipeable-card/index.jsx';
 import UserCard from '#components/user-card';
 import { AnimatePresence } from 'framer-motion';
@@ -8,7 +7,7 @@ import styles from './styles.module.css';
 import Card from '#components/card/index.jsx';
 import { callApi } from '#utils/callApi';
 
-export default function page() {
+export default function Page() {
   const initialData = useLoaderData();
 
   const [showTip, setShowTip] = useState(true);

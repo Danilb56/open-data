@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Button from '#components/button';
 import CardSlider from '#components/card-slider';
 import Input from '#components/input';
@@ -11,7 +10,7 @@ import { validateFrom } from './validateFrom';
 import { createCard } from './api';
 import { useNavigate } from 'react-router';
 
-export default function page() {
+export default function Page() {
   const { markers } = useLoaderData();
   const navigate = useNavigate();
 

@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Sidebar from '#components/sidebar/index.jsx';
 import { Outlet, useLoaderData } from 'react-router';
 import styles from './styles.module.css';
 
-export default function page() {
+export default function Page() {
   const data = useLoaderData();
 
   return (
