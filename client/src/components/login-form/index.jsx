@@ -84,7 +84,7 @@ export default function Form() {
       >
         Войти
       </Button>
-      <Link to={'/signup'}>У вас еще нет аккаунта?</Link>
+      <Link to={'/signup'}>У Вас еще нет аккаунта?</Link>
     </form>
   );
 }
