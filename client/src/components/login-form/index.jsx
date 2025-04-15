@@ -79,6 +79,7 @@ export default function Form() {
         style={{
           backgroundColor: 'var(--blue)',
           border: '2px solid var(--blue)',
+          color: 'var(--white)',
         }}
         onClick={handleLogin}
       >

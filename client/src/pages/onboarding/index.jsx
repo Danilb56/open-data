@@ -181,6 +181,7 @@ export default function Page() {
             style={{
               backgroundColor: 'var(--blue)',
               border: '2px solid var(--blue)',
+              color: 'var(--white)',
             }}
             onClick={() => {
               if (validateFrom(data, setError, setScrollTo)) {

@@ -1,6 +1,6 @@
 .button {
   background-color: var(--background);
-  color: var(--white);
+  color: var(--muted-foreground);
   border: 2px solid var(--border);
   border-radius: 8px;
   font-family: Roboto;

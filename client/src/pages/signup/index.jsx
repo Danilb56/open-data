@@ -17,6 +17,7 @@ export default function page() {
             style={{
               backgroundColor: 'var(--blue)',
               border: '2px solid var(--blue)',
+              color: 'var(--white)',
             }}
           >
             У меня уже есть аккаунт
