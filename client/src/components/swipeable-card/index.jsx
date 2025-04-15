@@ -13,7 +13,7 @@ const SwipeableCard = (props) => {
     onSwipedRight: () => {
       setRemoving('right');
     },
-    trackMouse: true,
+    trackMouse: false,
   });
 
   useEffect(() => {
