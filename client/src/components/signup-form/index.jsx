@@ -84,7 +84,10 @@ export default function Form() {
         }
       />
       <Button
-        style={{ backgroundColor: 'var(--blue)' }}
+        style={{
+          backgroundColor: 'var(--blue)',
+          border: '2px solid var(--blue)',
+        }}
         type="button"
         onClick={handleSignup}
       >

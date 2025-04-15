@@ -178,7 +178,10 @@ export default function Page() {
       content: (
         <div className={styles.form}>
           <Button
-            style={{ backgroundColor: 'var(--blue)' }}
+            style={{
+              backgroundColor: 'var(--blue)',
+              border: '2px solid var(--blue)',
+            }}
             onClick={() => {
               if (validateFrom(data, setError, setScrollTo)) {
                 createCard(data)

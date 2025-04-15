@@ -13,7 +13,12 @@ export default function page() {
         ' напарника для мотивационных тренировок под открытым небом',
       content: (
         <Link to={'/login'}>
-          <Button style={{ backgroundColor: 'var(--blue)' }}>
+          <Button
+            style={{
+              backgroundColor: 'var(--blue)',
+              border: '2px solid var(--blue)',
+            }}
+          >
             У меня уже есть аккаунт
           </Button>
         </Link>
