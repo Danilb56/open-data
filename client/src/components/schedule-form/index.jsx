@@ -1,6 +1,6 @@
 import Button from '#components/button';
 import ScheduleInput from '#components/schedule-input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { updateSchedules } from './api';
 
@@ -23,6 +23,33 @@ const ScheduleForm = (props) => {
 
   const [active, setActive] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (
+      !Object.values(schedules).reduce((counter, s) => {
+        if (s.active) {
+          counter++;
+        }
+        return counter;
+      }, 0)
+    ) {
+      setError('Выберите хотя бы один день');
+      return;
+    }
+    Object.entries(schedules).map(([day, schedule]) => {
+      if (schedule.active) {
+        if (!schedule.start || !schedule.end) {
+          setError('Выберите время для каждого дня');
+          return;
+        }
+        if (schedule.start > schedule.end) {
+          setError('Время начала не может быть больше времени окончания');
+          return;
+        }
+      }
+    });
+    setError('');
+  }, [schedules]);
   return (
     <div className={styles.form}>
       {[
@@ -54,16 +81,12 @@ const ScheduleForm = (props) => {
           }
         />
       ))}
-      <span className={styles.error}>{error.schedules}</span>
+      <span className={styles.error}>{error}</span>
       <Button
         contrast={true}
         onClick={() => {
           if (active) {
-            if (
-              !Object.values(error).reduce((counter, e) => {
-                if (e) counter++;
-              }, 0)
-            ) {
+            if (!error) {
               updateSchedules(schedules);
               setActive(!active);
               return;

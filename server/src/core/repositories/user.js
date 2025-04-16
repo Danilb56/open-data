@@ -25,6 +25,25 @@ class UserRepository {
     const updatedUser = await prisma.user.update({ where: { id }, data: user });
     return updatedUser;
   }
+  async updateLocations(id, locations) {
+    const userCard = await prisma.card.findUnique({ where: { authorId: id } });
+    await prisma.card.update({
+      where: { id: userCard.id },
+      data: {
+        SportsObject_CardAddedObjects: {
+          deleteMany: {},
+        },
+      },
+    });
+    await prisma.card.update({
+      where: { id: userCard.id },
+      data: {
+        SportsObject_CardAddedObjects: {
+          connect: locations.map((location) => ({ locationId: location.id })),
+        },
+      },
+    });
+  }
 
   async updateSchedules(id, schedules) {
     const userCard = await prisma.card.findUnique({ where: { authorId: id } });

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import styles from './styles.module.css';
 import { callApi } from '#utils/callApi';
+import { updateLocations } from './api';
 
 export default function Page() {
   const { user, card } = useLoaderData();
@@ -60,7 +61,25 @@ export default function Page() {
           <span className={styles.error}>{locationsError}</span>
           <Button
             contrast={true}
-            onClick={() => setLocationFormActive(!locationFormActive)}
+            onClick={() => {
+              if (chosenLocations.length === 0 && locationFormActive) {
+                setLocationsError('Выберите хотя бы одно место');
+                return;
+              } else {
+                setLocationsError('');
+              }
+              if (locationFormActive) {
+                if (!locationsError) {
+                  updateLocations(chosenLocations);
+                  setLocationFormActive(!locationFormActive);
+                  return;
+                } else {
+                  return;
+                }
+              } else {
+                setLocationFormActive(!locationFormActive);
+              }
+            }}
           >
             {locationFormActive ? 'Сохранить' : 'Редактировать'}
           </Button>
