@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         path: '/profile',
         loader: () => {
           return protectRoute(async () => {
-            return await callApi('/user/profile');
+            return await callApi('/user');
           });
         },
         element: <Profile />,

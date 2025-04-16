@@ -1,7 +1,8 @@
+import Button from '#components/button';
+import Input from '#components/input';
 import { useState } from 'react';
 import styles from './styles.module.css';
-import Input from '#components/input';
-import Button from '#components/button';
+import { updateUserCredentials } from './api';
 
 const CredentialsForm = (props) => {
   const { user: initialData, className, ...otherProps } = props;
@@ -86,7 +87,23 @@ const CredentialsForm = (props) => {
       />
       <Button
         contrast={true}
-        onClick={() => setActive(!active)}
+        onClick={() => {
+          if (active) {
+            if (
+              !Object.values(error).reduce((counter, e) => {
+                if (e) counter++;
+              }, 0)
+            ) {
+              updateUserCredentials(user);
+              setActive(!active);
+              return;
+            } else {
+              return;
+            }
+          } else {
+            setActive(!active);
+          }
+        }}
       >
         {active ? 'Сохранить' : 'Редактировать'}
       </Button>

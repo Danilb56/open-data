@@ -21,9 +21,14 @@ class UserController {
     res.json(createdCard).status(201);
   }
 
+  async updateUser(req, res) {
+    const userId = req.ctx.sub;
+    await userRepository.updateUser(userId, { ...req.body });
+  }
   async getProfile(req, res) {
     const userId = req.ctx.sub;
-    const user = await userRepository.findUserById(userId);
+    const userFromDB = await userRepository.findUserById(userId);
+    const { hashedPassword, ...user } = userFromDB;
     const card = await cardRepository.getCardByAuthorId(userId);
     res.json({ user, card }).status(200);
   }
