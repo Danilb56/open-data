@@ -15,9 +15,9 @@ const days = {
 };
 
 export default function ScheduleInput(props) {
-  const { day, onChange } = props;
-  const [active, setActive] = useState(false);
-  const [data, setData] = useState({ start: '', end: '' });
+  const { day, onChange, disabled, initSchedule } = props;
+  const [active, setActive] = useState(initSchedule ? true : false);
+  const [data, setData] = useState(initSchedule || { start: '', end: '' });
 
   useEffect(() => {
     if (onChange) {
@@ -28,24 +28,27 @@ export default function ScheduleInput(props) {
   return (
     <div className={styles.schedule}>
       <ToggleButton
-        active={active}
+        active={!disabled && active}
         onClick={() => {
+          if (disabled) return;
           setActive(!active);
         }}
       >
         {days[day]}
       </ToggleButton>
       <TimeInput
-        disabled={!active}
+        disabled={!active || disabled}
         type="time"
+        defaultValue={initSchedule && initSchedule.start}
         error={active && (!data.start || data.start > data.end)}
         onChange={(e) => {
           setData((prev) => ({ ...prev, start: e.target.value }));
         }}
       />
       <TimeInput
-        disabled={!active}
+        disabled={!active || disabled}
         type="time"
+        defaultValue={initSchedule && initSchedule.end}
         error={active && (!data.end || data.start > data.end)}
         onChange={(e) => {
           setData((prev) => ({ ...prev, end: e.target.value }));

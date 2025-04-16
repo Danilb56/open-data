@@ -1,8 +1,11 @@
 .schedule {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
+  width: 100%;
 }
 
 .schedule > * {
   height: 100%;
+  flex-shrink: 1;
 }

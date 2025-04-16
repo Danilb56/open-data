@@ -6,7 +6,7 @@ import ScheduleInput from '#components/schedule-input';
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import styles from './styles.module.css';
-import { validateFrom } from './validateFrom';
+import { validateForm } from './validateForm';
 import { createCard } from './api';
 import { useNavigate } from 'react-router';
 
@@ -178,13 +178,9 @@ export default function Page() {
       content: (
         <div className={styles.form}>
           <Button
-            style={{
-              backgroundColor: 'var(--blue)',
-              border: '2px solid var(--blue)',
-              color: 'var(--white)',
-            }}
+            contrast={true}
             onClick={() => {
-              if (validateFrom(data, setError, setScrollTo)) {
+              if (validateForm(data, setError, setScrollTo)) {
                 createCard(data)
                   .then((res) => res.json())
                   .then((data) => {

@@ -12,7 +12,7 @@
 }
 
 .input {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   padding: 2px 5px;
   border: 2px solid transparent;
@@ -26,6 +26,11 @@
 
 .input.invalid {
   outline: 2px solid var(--red);
+}
+
+.input:disabled {
+  opacity: 0.8;
+  color: var(--muted-foreground);
 }
 
 .error {

@@ -11,4 +11,6 @@ router.get('/likes', (req, res) => userController.getLikes(req, res));
 
 router.get('/contacts', (req, res) => userController.getContacts(req, res));
 
+router.get('/profile', (req, res) => userController.getProfile(req, res));
+
 export default router;

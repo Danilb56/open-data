@@ -28,6 +28,11 @@
   outline: 2px solid var(--red);
 }
 
+.input:disabled {
+  opacity: 0.8;
+  color: var(--muted-foreground);
+}
+
 .error {
   color: var(--red);
   font-size: 12px;

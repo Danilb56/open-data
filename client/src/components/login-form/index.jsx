@@ -76,11 +76,7 @@ export default function Form() {
       />
       <Button
         type="button"
-        style={{
-          backgroundColor: 'var(--blue)',
-          border: '2px solid var(--blue)',
-          color: 'var(--white)',
-        }}
+        contrast={true}
         onClick={handleLogin}
       >
         Войти

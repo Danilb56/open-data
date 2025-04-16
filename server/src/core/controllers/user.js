@@ -21,6 +21,13 @@ class UserController {
     res.json(createdCard).status(201);
   }
 
+  async getProfile(req, res) {
+    const userId = req.ctx.sub;
+    const user = await userRepository.findUserById(userId);
+    const card = await cardRepository.getCardByAuthorId(userId);
+    res.json({ user, card }).status(200);
+  }
+
   async getContacts(req, res) {
     const userId = req.ctx.sub;
 

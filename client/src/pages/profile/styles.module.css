@@ -1,0 +1,59 @@
+.page {
+  width: 100%;
+  height: min-content;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+.cards {
+  margin-top: 40px;
+  margin-bottom: auto;
+  display: flex;
+  gap: 20px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.card {
+  min-height: 100%;
+  padding: 20px 10px;
+  flex-basis: 300px;
+  flex: 0;
+  min-width: 300px;
+}
+
+.card h2 {
+  font-size: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mapContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  min-height: 300px;
+  min-width: 260px;
+  width: 100%;
+}
+
+.mapWrapper {
+  height: 80%;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  overflow: hidden;
+}
+
+.error {
+  color: var(--red);
+  font-size: 12px;
+  margin-left: 10px;
+  display: block;
+}

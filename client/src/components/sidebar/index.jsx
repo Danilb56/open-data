@@ -70,19 +70,24 @@ const Sidebar = (props) => {
           Контакты
         </SidebarButton>
       </Link>
-      <SidebarButton
-        icon={
-          <User
-            color={
-              location.pathname === '/profile'
-                ? 'var(--blue)'
-                : 'var(--muted-foreground)'
-            }
-          />
-        }
+      <Link
+        style={{ display: 'contents' }}
+        to={'/profile'}
       >
-        Профиль
-      </SidebarButton>
+        <SidebarButton
+          icon={
+            <User
+              color={
+                location.pathname === '/profile'
+                  ? 'var(--blue)'
+                  : 'var(--muted-foreground)'
+              }
+            />
+          }
+        >
+          Профиль
+        </SidebarButton>
+      </Link>
       <SidebarButton
         icon={<SunMoon />}
         onClick={() =>

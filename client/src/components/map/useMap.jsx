@@ -123,7 +123,7 @@ export const useMap = (markers, selectable, onChange) => {
         />
       );
     },
-    [ymaps],
+    [ymaps, points],
   );
 
   const cluster = useCallback(
@@ -147,7 +147,7 @@ export const useMap = (markers, selectable, onChange) => {
         </ymaps.YMapMarker>
       );
     },
-    [ymaps, currentLocation],
+    [ymaps, currentLocation, points],
   );
 
   return {

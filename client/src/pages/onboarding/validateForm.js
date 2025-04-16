@@ -1,4 +1,4 @@
-export const validateFrom = (data, setError, setScrollTo) => {
+export const validateForm = (data, setError, setScrollTo) => {
   let scrollTo;
 
   if (!data.locations.length) {
