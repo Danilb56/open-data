@@ -75,9 +75,9 @@ const router = createBrowserRouter([
     path: '/onboarding',
 
     loader: async () => {
-      return protectRoute(async () => {
-        return await callApi('/geo/markers');
-      });
+      const res = await validateAccessToken();
+      if (res.status == 401) return redirect('/login');
+      return await callApi('/geo/markers');
     },
 
     element: <OnboardingPage />,

@@ -1,6 +1,7 @@
 import { verifyAccessToken } from '#utils/jwt.js';
 import { createAccessToken } from '#utils/jwt.js';
 import { userRepository } from '#core/repositories/user.js';
+import { cardRepository } from '#core/repositories/card.js';
 import { hashPassword, comparePassword } from '#utils/security.js';
 
 class AuthController {
@@ -66,10 +67,13 @@ class AuthController {
 
     if (!token) res.sendStatus(401);
 
+    const card = await cardRepository.getCardByAuthorId(token.sub);
+
     res
       .json({
         success: true,
         user: { id: token.sub, role: token.role },
+        cardId: card ? card.id : null,
       })
       .status(200);
   }
