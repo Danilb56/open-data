@@ -26,6 +26,25 @@ class UserRepository {
     return updatedUser;
   }
 
+  async updateSchedules(id, schedules) {
+    const userCard = await prisma.card.findUnique({ where: { authorId: id } });
+    await prisma.schedule.deleteMany({ where: { cardId: userCard.id } });
+    await prisma.card.update({
+      where: { id: userCard.id },
+      data: {
+        schedules: {
+          create: Object.entries(schedules)
+            .filter(([, schedule]) => schedule.active)
+            .map(([day, schedule]) => ({
+              dayOfWeek: day,
+              startTime: schedule.start,
+              endTime: schedule.end,
+            })),
+        },
+      },
+    });
+  }
+
   async createCard(userId, data) {
     const createdCard = await prisma.card.create({
       data: {

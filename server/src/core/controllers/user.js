@@ -25,6 +25,11 @@ class UserController {
     const userId = req.ctx.sub;
     await userRepository.updateUser(userId, { ...req.body });
   }
+
+  async updateSchedules(req, res) {
+    const userId = req.ctx.sub;
+    await userRepository.updateSchedules(userId, req.body);
+  }
   async getProfile(req, res) {
     const userId = req.ctx.sub;
     const userFromDB = await userRepository.findUserById(userId);

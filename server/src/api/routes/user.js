@@ -15,4 +15,6 @@ router.get('/', (req, res) => userController.getProfile(req, res));
 
 router.put('/', (req, res) => userController.updateUser(req, res));
 
+router.put('/schedules', (req, res) => userController.updateSchedules(req, res));
+
 export default router;

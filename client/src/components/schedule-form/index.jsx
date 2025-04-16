@@ -1,7 +1,8 @@
-import styles from './styles.module.css';
-import ScheduleInput from '#components/schedule-input';
 import Button from '#components/button';
-import { act, useEffect, useState } from 'react';
+import ScheduleInput from '#components/schedule-input';
+import { useState } from 'react';
+import styles from './styles.module.css';
+import { updateSchedules } from './api';
 
 const ScheduleForm = (props) => {
   const { schedules: initialData, className, ...otherProps } = props;
@@ -56,7 +57,23 @@ const ScheduleForm = (props) => {
       <span className={styles.error}>{error.schedules}</span>
       <Button
         contrast={true}
-        onClick={() => setActive((prev) => !active)}
+        onClick={() => {
+          if (active) {
+            if (
+              !Object.values(error).reduce((counter, e) => {
+                if (e) counter++;
+              }, 0)
+            ) {
+              updateSchedules(schedules);
+              setActive(!active);
+              return;
+            } else {
+              return;
+            }
+          } else {
+            setActive(!active);
+          }
+        }}
       >
         {active ? 'Сохранить' : 'Редактировать'}
       </Button>
