@@ -1,7 +1,10 @@
 import { userController } from '#core/controllers/user.js';
+import { withAuthMiddleware } from '#api/middleware.js';
 import express from 'express';
 
 const router = express.Router();
+
+router.use(withAuthMiddleware);
 
 router.post('/create-card', (req, res) => userController.createCard(req, res));
 
